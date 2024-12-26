@@ -1,0 +1,43 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: TorchRun",
+            "type": "python",
+            "request": "launch",
+            // "program": "${file}",
+            "module": "torch.distributed.run",            
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "env": {
+                "CUDA_VISIBLE_DEVICES": "0,1,2,3"
+            },
+            "args": [
+                "--nnodes", "1",
+                "--nproc_per_node", "1",
+                "--node_rank", "0",
+                "--master-addr", "localhost",
+                "--master-port", "6001",
+                "main_pretrain.py",
+                "--batch_size", "8",
+                "--accum_iter", "32",
+                "--norm_pix_loss",
+                "--epochs", "100",
+                "--blr", "1.5e-4",
+                "--mask_ratio", "0.75",
+                "--input_size", "224",
+                "--patch_size", "16",
+                "--model", "mae_vit_large_patch16",
+                "--model_type", "temporal",
+                "--dataset_type", "temporal",
+                "--train_path", "/mnt/truenas_datasets/Datasets_Geospace/fMoW/fmow_rgb_processed/train_data/train_62classes.csv",
+                "--output_dir", "output",
+                "--log_dir", "log",
+                "--num_workers", "8"
+            ]                        
+        }
+    ]
+}
